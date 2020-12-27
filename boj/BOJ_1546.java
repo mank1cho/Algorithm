@@ -1,23 +1,27 @@
-//https://www.acmicpc.net/problem/10818  최소, 최대
+// https://www.acmicpc.net/problem/1546  평균
 package boj;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class BOJ_10818 {
-	public static void main(String args[]) throws Exception{
+public class BOJ_1546 {
+	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+		
 		int N = Integer.parseInt(br.readLine());
-		int min = Integer.MAX_VALUE;
-		int max = Integer.MIN_VALUE;
+		double[] arr = new double[N];
+		int MAX = 0;
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i = 0; i<N; ++i) {
 			int x = Integer.parseInt(st.nextToken());
-			if(x<min) min = x;
-			if(x>max) max = x;
+			MAX = Math.max(MAX, x);
+			arr[i] = x;
 		}
-		System.out.print(min + " " + max);		
+		double sum = 0;
+		for(int i = 0; i<N; ++i) {
+			sum += arr[i]/MAX*100;
+		}
+		System.out.print(sum/N);
 	}
 }

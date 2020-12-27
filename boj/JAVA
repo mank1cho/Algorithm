@@ -1,28 +1,11 @@
-//https://www.acmicpc.net/problem/2557  Hello World!
-package boj;
+-------------------------------------------------------------------------------------------------------
+Integer : 
+parseInt(): 원시데이터인 int 타입을 반환
+valueOf(): Integer 래퍼(wrapper)객체를 반환 (Boxing, 산술연산 못함)
 
-public class BOJ_2557 {
-	public static void main(String args[]) throws Exception {
-		//1
-		System.out.println("Hello World!");
-		
-		/*
-		2.
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		bw.write("Hello World!");
-		bw.flush();
-		
-		3.
-		StringBuilder sb = new StringBuilder();
-		sb.append("Hello World!");
-		System.out.print(sb);
-		
-		4.
-		StringBuffer sb = new StringBuffer();
-		sb.append("Hello World!");
-		System.out.print(sb);
-		
-		----
+-------------------------------------------------------------------------------------------------------
+String :
+
 		String str1 = "string";
 		String str2 = "string";
 		String str3 = new String(string);
@@ -49,13 +32,13 @@ public class BOJ_2557 {
 		+연산자로 문자열을 이어붙일때마다 새로운 String이 생성되므로 메모리 관리 측면에서 적절하지 않음. java에서 대표적인 immutable한 객체임.
 		
 		StringBuilder와 StringBuffer는 mutable한 객체이다. 문자열을 이어붙일 수 있다.
-		???*JDK 1.5 버전 이후에는 String 객체를 사용하더라도 컴파일 단계에서 StringBuilder로 컴파일하도록 변경되었다.???
+		*JDK 1.5 버전 이후에는 String 객체를 사용하더라도 컴파일 단계에서 StringBuilder로 컴파일하도록 변경되었다.
 		
 		StringBuilder 와 StringBuffer의 가장 큰 차이점 : Thread-safe.
 		StringBuilder는 Thread-safe하지 않다.
 		StringBuffer는 Thread-safe하다.
 		
 		참고 https://novemberde.github.io/2017/04/15/String_0.html
-		*/
-	}
-}
+-------------------------------------------------------------------------------------------------------	
+		
+		
