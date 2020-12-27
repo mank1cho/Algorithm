@@ -1,9 +1,8 @@
 # Algorithm
-Problem Solving
 
+### Problem Solving
+* BOJ, Programmers, SWEA, Codeforce, LeetCode, HackerRank etc..
 
-Since 2020.12.27 ~
+* Language : JAVA
 
-[JAVA, Eclipse]
-
-BOJ, Programmers, SWEA, Codeforce, LeetCode, HackerRank etc..
+* Since 2020.12.27 ~
