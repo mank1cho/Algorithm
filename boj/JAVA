@@ -3,6 +3,9 @@ Integer :
 parseInt(): 원시데이터인 int 타입을 반환
 valueOf(): Integer 래퍼(wrapper)객체를 반환 (Boxing, 산술연산 못함)
 
+parseInt는 산술연산이 가능하나 null 초기화가 불가능하다.
+vlaueOf는 wrapper class로서 산술연산이 불가능하지만 null 처리가 가능하므로 SQL연동 시 사용될 수 있다.
+
 -------------------------------------------------------------------------------------------------------
 String :
 
@@ -39,6 +42,17 @@ String :
 		StringBuffer는 Thread-safe하다.
 		
 		참고 https://novemberde.github.io/2017/04/15/String_0.html
--------------------------------------------------------------------------------------------------------	
 		
+		
+		//String 자리수 맞추기.
+		int user_no = 30;
+		String result_user_no = String.format("%04d", user_no);
+		result_user_no 는 0030이 된다.
+		%-명령시작, 0-채워질 문자, 4-총자리수, d-십진정수
+-------------------------------------------------------------------------------------------------------	
+/*
+Double ans = BigDecimal.valueOf(double)
+.setScale(3, RoundingMode.HALF_UP)
+.doubleValue();
+*/		
 		
