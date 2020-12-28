@@ -49,8 +49,11 @@ String :
 		String result_user_no = String.format("%04d", user_no);
 		result_user_no 는 0030이 된다.
 		%-명령시작, 0-채워질 문자, 4-총자리수, d-십진정수
+		
+		//소수점 아래 precision 설정
+		String.format("%.3f", double or float)
 -------------------------------------------------------------------------------------------------------	
-/*
+/* BigDecimal(소수점 아래 '최대' precision 설정, (0은 출력 안됨))
 Double ans = BigDecimal.valueOf(double)
 .setScale(3, RoundingMode.HALF_UP)
 .doubleValue();
