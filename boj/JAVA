@@ -52,10 +52,71 @@ String :
 		
 		//소수점 아래 precision 설정
 		String.format("%.3f", double or float)
+		
+		//Math.round()와 String.format()차이점 
+		위 메서드들은 실수를 소수점 n번째까지 잘라서 표현한다는 공통점이 있다. 
+		하지만 두개의 메서드가 꼭 같은 결과값을 출력하지는 않는다. 
+		Math.round()함수는 소수점아래가 0일경우 절삭하지만 String.format은 절삭하지 않고 그대로 리턴한다.
+		
+		예)
+		double money = 5000.000;
+		System.out.println(Math.round(money*1000)/1000); //결과 5000
+		System.out.println(String.format("%.3f", money)); //결과 : 5000.000
+
 -------------------------------------------------------------------------------------------------------	
 /* BigDecimal(소수점 아래 '최대' precision 설정, (0은 출력 안됨))
 Double ans = BigDecimal.valueOf(double)
 .setScale(3, RoundingMode.HALF_UP)
 .doubleValue();
 */		
+
+-------------------------------------------------------------------------------------------------------
+compare 예제
+
+-----------int--------------
+		int[][] arr = new String[N][2];
 		
+		Arrays.sort(arr, new Comparator<int[]>() {
+			@Override
+			public int compare(int[] e1, int[] e2) {
+				if(e1[1] == e2[1]) {
+					return e1[0] - e2[0];
+				} else {
+					return e1[1] - e2[1];
+				}
+			}
+		});
+		
+*lambda		
+		Arrays.sort(arr, (e1, e2) -> {	// int[] e1, int[] e2 가 정석인데 타입이 생략됨.
+			if(e1[1] == e2[1]) {
+				return e1[0] - e2[0];
+			} else {
+				return e1[1] - e2[1];
+			}
+		});
+		
+----------string-------------
+		String[] arr = new String[N];
+		
+		Arrays.sort(arr, new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				if(s1.length() == s2.length()) {
+					return s1.compareTo(s2);
+				}
+				else {
+					return s1.length() - s2.length();
+				}
+			}
+		});
+		
+*lambda
+		Arrays.sort(arr, (String s1, String s2) -> {
+			if(s1.length() == s2.length()) {
+				return s1.compareTo(s2);
+			}
+			else
+				return s1.length() - s2.length();
+		});
+-------------------------------------------------------------------------------------------------------		
