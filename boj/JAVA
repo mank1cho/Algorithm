@@ -6,6 +6,7 @@ valueOf(): Integer 래퍼(wrapper)객체를 반환 (Boxing, 산술연산 못함)
 parseInt는 산술연산이 가능하나 null 초기화가 불가능하다.
 vlaueOf는 wrapper class로서 산술연산이 불가능하지만 null 처리가 가능하므로 SQL연동 시 사용될 수 있다.
 
+java wrapper Class : Short, Integer, Long, Float, Double, BigInteger, BigDecimal
 -------------------------------------------------------------------------------------------------------
 String :
 
