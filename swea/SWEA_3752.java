@@ -1,5 +1,5 @@
 // https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWHPkqBqAEsDFAUn&categoryId=AWHPkqBqAEsDFAUn&categoryType=CODE
-// 
+// 가능한 시험 점수
 package swea;
 
 import java.io.*;
