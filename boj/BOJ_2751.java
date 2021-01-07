@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/2751  수 정렬하기 2
-// sort(O(logN))
+// sort(O(NlogN))
 package boj;
 
 import java.io.*;
