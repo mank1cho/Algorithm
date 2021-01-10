@@ -231,6 +231,46 @@ Queue
   clear()
 
 -------------------------------------------------------------------------------------------------------		
+Dequeue
+**헤더 : 
+ java.util.ArrayDeque;
+ java.util.Deque;
+
+**선언 :
+ Deque<Integer> dq = new ArrayDeque<>();
+		
+**메서드 :
+  추가(enqueue)
+  addFirst(value) 큐에 여유공간이 없어 삽입 실패시 IllegalStateException 발생
+  offerFirst(value) 실패시 false 리턴
+  addLast() 덱의 마지막에 삽입
+  offerLast() 덱의 마지막에 삽입
+  add() -> addLast와 동일
+  offer() -> offerLast와 동일
+  
+  삭제(dequeue)
+  removeFirst() 덱의 첫번째 요소를 반환하고 제거. 덱이 비어있으면 Exception 발생
+  remove() removeFirst와 동일
+  element() 동일
+  removeLast() 덱의 마지막 요소를 반환하고 제거
+  
+  pollFirst() 덱의 첫번째 요소를 반환하고 제거. 덱가 비어있으면 null 리턴
+  pollLast()
+  poll() pollFirst와 동일
+
+  검사(peek)
+  getFirst() 덱의 앞쪽 엘리먼트 리턴. 덱이 비어있으면 Exception발생
+  getLast() 덱의 뒤쪽 엘리먼트 리턴
+  peekFirst() 덱의 앞쪽 엘리먼트를 리턴. 덱이 비어있으면 null 리턴
+  peek() 동일.
+  peekLast() 덱의 앞쪽 엘리먼트 리턴
+  
+  
+  clear()
+  iterator() 덱의 가장 앞쪽 iterator를 얻어옴
+  descendingIterator() 덱의 가장 뒤쪽 iterator를 얻어옴
+
+-------------------------------------------------------------------------------------------------------		
 Stack
 **헤더 :
  java.util.Stack
