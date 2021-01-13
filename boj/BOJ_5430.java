@@ -50,7 +50,10 @@ public class BOJ_5430 {
 			else {
 				sb.append('[');
 				while(dq.size()>1) {
-					sb.append(dq.poll()).append(", ");
+					if(reverse == 0)
+						sb.append(dq.poll()).append(",");
+					else
+						sb.append(dq.pollLast()).append(",");
 				}
 				if(!dq.isEmpty()) {
 					sb.append(dq.poll());
