@@ -1,5 +1,6 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1707
+// 이분 그래프
+// DFS
 package boj;
 
 import java.io.*;
