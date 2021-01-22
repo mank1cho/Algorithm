@@ -22,6 +22,10 @@ public class BOJ_11505_G1 {
 		arr = new long[N+1];
 		tree = new long[N+1];
 		
+		for(int i = 0; i<=N; ++i) {
+			tree[i] = 1;
+		}
+		
 		for(int i = 1; i<=N; ++i) {
 			arr[i] = Long.parseLong(br.readLine());
 			update(i, 1, arr[i]);
@@ -40,7 +44,11 @@ public class BOJ_11505_G1 {
 				arr[b] = c;
 			}
 			else {
-				sb.append(sum((int) c) - sum(b-1)).append('\n');
+				long x = multi((int) c);
+				long y = multi(b-1);
+				if(x == 0) sb.append(0);
+				else sb.append(x/y);
+				sb.append('\n');
 			}
 		}
 		
@@ -49,17 +57,20 @@ public class BOJ_11505_G1 {
 	
 	public static void update(int i, long last, long next) {
 		while(i<tree.length) {
-			tree[i] = tree[i]/last*next%mod;
+			if(next == 0) tree[i] = 0;
+			else if(last == 0) {
+				tree[i] = next; //last = 1;
+			}
+			else tree[i] = tree[i]/last*next%mod;
 			i += (i&-i);
-			System.out.println("i: " + i);
 		}
-		System.out.println();
 	}
 	
-	public static long sum(int i) {
-		long ans = 0;
+	public static long multi(int i) {
+		long ans = 1;
 		while(i>0) {
-			ans += tree[i];
+			if(tree[i] == 0) return 0;
+			ans = ans*tree[i]%mod;
 			i-=(i&-i);
 		}
 		return ans;
