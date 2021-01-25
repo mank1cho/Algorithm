@@ -67,10 +67,7 @@ public class BOJ_3055_G5 {
 				}
 			}
 		}
-		
 		if(f) System.out.println(cnt);
 		else System.out.println("KAKTUS");
 	}
-	
-	
 } 
