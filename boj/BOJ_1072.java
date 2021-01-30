@@ -1,15 +1,12 @@
-// https://www.acmicpc.net/problem/
-// 
+// https://www.acmicpc.net/problem/1072
+// 게임
+// Binary Search
 package boj;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-
-	
+public class BOJ_1072 {
 	public static void main(String[] args) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    StringTokenizer st = new StringTokenizer(br.readLine());
@@ -39,7 +36,5 @@ public class Main {
 	    }
 	    
 	    System.out.println(min);
-	    
 	}
-}
-
+} 
