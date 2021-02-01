@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 public class BOJ_20061_G2 {
-	static boolean[][][] map = new boolean[2][10][4];	//x, y, color(green, blue)
+	static boolean[][][] map = new boolean[2][10][4];	//color(green, blue), x, y
 	static boolean[] clear = {false, false, false, false};
 	static int ans = 0;
 	

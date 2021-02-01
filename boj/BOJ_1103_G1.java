@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/1103
 // 게임
-// 
+// DFS + DP
 package boj;
 
 import java.io.*;
