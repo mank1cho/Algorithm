@@ -1,13 +1,12 @@
-// https://www.acmicpc.net/problem/
-// 
-// 
-package boj;
+// https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PobmqAPoDFAUq
+// 달팽이 숫자
+// 구현
+package swea;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class BOJ_ {
+public class SWEA_1954 {
 	static final int[] dx = {0,1,0,-1};
 	static final int[] dy = {1,0,-1,0};
 	

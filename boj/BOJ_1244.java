@@ -1,3 +1,7 @@
+// https://www.acmicpc.net/problem/1244
+// 스위치 켜고 끄기
+// 구현
+
 package boj;
 
 import java.io.BufferedReader;
