@@ -6,7 +6,7 @@ package boj;
 import java.io.*;
 import java.util.*;
 
-public class BOJ_1707 {
+public class BOJ_1707_G4 {
 	static int V, E;
 	static int[] nodeColor;
 	static ArrayList<Integer>[] adj;

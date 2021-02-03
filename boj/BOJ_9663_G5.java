@@ -4,7 +4,7 @@ package boj;
 
 import java.io.*;
 
-public class BOJ_9663 {
+public class BOJ_9663_G5 {
 	static int[] col;	//열
 	static int[] diag1;	//대각선 1
 	static int[] diag2;	//대각선 2

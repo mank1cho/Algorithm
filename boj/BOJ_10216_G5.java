@@ -5,7 +5,7 @@ package boj;
 import java.io.*;
 import java.util.*;
 
-public class BOJ_10216 {	
+public class BOJ_10216_G5 {	
 	public static class INFO{
 		int x, y, r;
 		INFO(int x, int y, int r){

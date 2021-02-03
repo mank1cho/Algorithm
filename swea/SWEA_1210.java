@@ -15,7 +15,7 @@ public class SWEA_1210 {
     	
     	for(int t = 1; t<=10; ++t) {
     		br.readLine();
-    		boolean[][] map = new boolean[101][101];
+    		boolean[][] map = new boolean[101][102];
         	for(int i = 1; i<100; ++i) {
         		st = new StringTokenizer(br.readLine());
         		for(int j = 1; j<101; ++j) {

@@ -5,7 +5,7 @@ package boj;
 import java.io.*;
 import java.util.*;
 
-public class BOJ_17298 {
+public class BOJ_17298_G4 {
 	public static class Pair{
 		int var;
 		int idx;

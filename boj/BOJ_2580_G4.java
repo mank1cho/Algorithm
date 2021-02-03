@@ -5,7 +5,7 @@ package boj;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class BOJ_2580 {
+public class BOJ_2580_G4 {
 	static int[][] board = new int[9][9];
 	static boolean flag = false;
 	

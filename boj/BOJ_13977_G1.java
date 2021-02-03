@@ -6,7 +6,7 @@ package boj;
 import java.io.*;
 import java.util.*;
 
-public class BOJ_13977 {
+public class BOJ_13977_G1 {
 	static final long mod = (long) 1e9+7;
 	static final int size = (int) 4e6+1;
 	static long[] fact;

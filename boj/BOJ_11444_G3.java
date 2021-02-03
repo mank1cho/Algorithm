@@ -5,7 +5,7 @@ package boj;
 
 import java.io.*;
 
-public class BOJ_11444 {
+public class BOJ_11444_G3 {
 	static final long mod = (long) (1e9+7);
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
