@@ -1,5 +1,6 @@
 // https://www.acmicpc.net/problem/10216
 // Count Circle Groups
+// 구현
 package boj;
 
 import java.io.*;

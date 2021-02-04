@@ -49,8 +49,7 @@ public class SWEA_1208 {
 					arr[max-1] += arr[max--];
 				}
 			}
-			
-			System.out.println("max : " + max + " min : " + min);
+
 			sb.append("#").append(t).append(" ").append(max-min).append("\n");
 		}
 		
