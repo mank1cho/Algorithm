@@ -3,22 +3,17 @@
 // 
 package boj;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class BOJ_ {
-    private static int R, C;
-    private static char[][] graph;
-
-    private static int[] dx = {-1, 1, 0, 0};
-    private static int[] dy = {0, 0, -1, 1};
 
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
         
+        String s = "01/14";
+        int i = Integer.parseInt(s.substring(0, 2));
+        int j = Integer.parseInt(s.substring(3, 5));
+        System.out.println(i + " " + j);
+        System.out.println("??");
     }
 }

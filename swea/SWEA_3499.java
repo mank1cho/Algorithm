@@ -1,13 +1,12 @@
-// 
-// 
-// 
+// https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWGsRbk6AQIDFAVW
+// 3499. 퍼펙트 셔플
+// 구현
 
 package swea;
 
 import java.io.*;
-import java.util.*;
 
-public class SWEA_ {
+public class SWEA_3499 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
