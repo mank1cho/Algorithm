@@ -1,13 +1,13 @@
-// https://www.acmicpc.net/problem/
-// 
-// 
+// https://www.acmicpc.net/problem/17406
+// 배열 돌리기 4
+// 구현
 package boj;
 
 import java.io.*;
 import java.util.*;
 
-public class BOJ_ {
-	
+public class BOJ_17406_G4 {
+
 	static int N,M,K, ans = Integer.MAX_VALUE;
 	static int[][] arr;
 	static int[][] rcs;
