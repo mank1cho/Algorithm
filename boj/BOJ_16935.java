@@ -31,6 +31,7 @@ public class BOJ_16935 {
     	   func(Integer.parseInt(st.nextToken()));
        }
        
+       // 정답 출력
        StringBuilder sb = new StringBuilder();
        for(int i=0; i<N; ++i) {
     	   for(int j=0; j<M; ++j) {
@@ -63,28 +64,13 @@ public class BOJ_16935 {
     		}
     		
     	}
-    	else if(x==4) {
-    		int[][] temp = new int[N][];
-    		for(int i = 0; i<N; ++i)
-    			temp[i] = map[i].clone();
-    		
-    		int t = N;
-    		N = M;
-    		M = t;
-    		
-    		for(int i = 0; i<N; ++i) {
-    			for(int j = 0; j<M; ++j) {
-    				map[i][j] = temp[j][N-1-i];
-    			}
-    		}
-    		
-    	}
-    	else if(x==3) {
+ 
+    	else if(x==3) {		// 시계방향 90도 회전
     		int[][] temp = new int[N][];
     		for(int i = 0; i<N; ++i)
     			temp[i] = map[i].clone();
     	
-    		int t = N;
+    		int t = N;	// N, M SWAP
     		N = M;
     		M = t;
     		
@@ -94,8 +80,25 @@ public class BOJ_16935 {
     			}
     		}
     	}
-    	else if(x==5) {
+    	
+    	else if(x==4) {		// 반시계방향 90도 회전
+    		int[][] temp = new int[N][];
+    		for(int i = 0; i<N; ++i)
+    			temp[i] = map[i].clone();
     		
+    		int t = N;	// N, M SWAP
+    		N = M;
+    		M = t;
+    		
+    		for(int i = 0; i<N; ++i) {
+    			for(int j = 0; j<M; ++j) {
+    				map[i][j] = temp[j][N-1-i];
+    			}
+    		}
+    	}
+    	
+    	else if(x==5) {	
+    		// temp에는 1사분면을 저장해 놓는다.
     		int[][] temp = new int[N/2][M/2];
     		for(int i = 0; i<N/2; ++i) {
     			for(int j = 0; j<M/2; ++j) {
@@ -103,23 +106,32 @@ public class BOJ_16935 {
     			}
     		}
     		
-    		int[] dx = {0,1,1,0}; // 1, 4, 3, 2 
+    		int[] dx = {0,1,1,0}; // 1, 4, 3, 2 사분면
     		int[] dy = {0,0,1,1};
-    		for(int d = 0; d<3; ++d) {
+    		for(int d = 0; d<3; ++d) {	// d 는 델타
+
     			for(int i = 0; i<N/2; ++i) {
     				for(int j = 0; j<M/2; ++j) {
-    					map[i+N/2*dx[d]][j+M/2*dy[d]] = map[i+N/2*dx[d+1]][j+M/2*dy[d+1]];
+    					int firstX = i+N/2*dx[d];
+    					int firstY = j+M/2*dy[d];		// d = 0 일때 얘는 0사분면.
+    					
+    					int SecondX = i+N/2*dx[d+1];
+    					int SecondY = j+M/2*dy[d+1];	// d = 0 일때 얘는 4사분면.
+
+    					map[firstX][firstY] = map[SecondX][SecondY];
     				}
     			}
+    			
     		}
-    		
+
+    		// 1사분면을 2사분면으로
     		for(int i = 0; i<N/2; ++i) {
     			for(int j = 0; j<M/2; ++j) {
     				map[i][j+M/2] = temp[i][j];
     			}
     		}
-    		
     	}
+    	
     	else {
     		
     		int[][] temp = new int[N/2][M/2];
