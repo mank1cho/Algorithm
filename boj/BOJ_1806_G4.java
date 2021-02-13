@@ -1,12 +1,12 @@
-// https://www.acmicpc.net/problem/
-// 
-// 
+// https://www.acmicpc.net/problem/1806
+// 부분합
+// 투포인터
 package boj;
 
 import java.io.*;
 import java.util.*;
 
-public class BOJ_ {
+public class BOJ_1806_G4 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
