@@ -13,11 +13,12 @@ public class SWEA_ {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
 		
-		for(int t = 1; t<=10; ++t) {
-			int N = Integer.parseInt(br.readLine());
+		int T = Integer.parseInt(br.readLine());
+		for(int t = 1; t<=T; ++t) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
 			
-			
-			sb.append("#").append(t).append(" ").append(0).append('\n');
+		
+			sb.append("#").append(t).append(" ").append(-1).append('\n');
 		}
 		System.out.println(sb);
 

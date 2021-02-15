@@ -56,7 +56,7 @@ public class BOJ_2517_P4 {
 		}
 	}
     
-    // 부분합 구하기
+    // 구간합 구하기
     static long sum(int node, int start, int end, int left, int right) {
 		if(left>end || right<start) return 0;
 		if(left<=start&&end<=right) return tree[node];

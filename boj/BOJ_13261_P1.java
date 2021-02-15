@@ -1,5 +1,5 @@
 // https://www.acmicpc.net/problem/13261
-// 김치
+// 탈옥
 // 분할정복을 이용한 최적화
 package boj;
 
