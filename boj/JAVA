@@ -180,8 +180,24 @@ Comparator 인터페이스의 구현체를 Arrays.sort()나 Collections.sort()�
 		};
 		
 		Arrays.sort(arr, comp);	
+
+		
+---3. Comparator 인터페이스를 익명 클래스로 구현.
+
+		Time[] time = new Time[N];
+		
+		Arrays.sort(time, new Comparator<Time>() {
+			@Override
+			public int compare(Time a, Time b) {
+				if(a.end == b.end) return a.start - b.start;
+				else return a.end - b.end;
+			}
+		});
+		
 	
----3. 람다 함수로 정렬.
+---4. 람다 함수로 정렬.
+	
+		Time[] time = new Time[N];
 
 		Arrays.sort(arr, (a, b) -> {       //a, b가 매개변수로 들어가는데 타입은 생략될 수 있다.
 			if(a.end == b.end) {
@@ -192,6 +208,11 @@ Comparator 인터페이스의 구현체를 Arrays.sort()나 Collections.sort()�
 		});
 		
 가장 쉽게 구현이 가능한 장점이 있다.
+
+//**********주의************//
+모든 리턴을 return a.start - b.start; 이런식으로 뺄셈을 통해 구현했는데, b가 음수인경우 오버플로우가 발생할 수 있다.
+Integer.Compare(a.start, b.start); 와 같이 return을 하면 예상치 못한 버그를 예방할 수 있다.
+//////////////////////////////
 
 4. Stream으로 정렬
 List를 사용할 경우 Stream을 통해 '새롭게 정렬된 객체'를 생성할 수 있다.
