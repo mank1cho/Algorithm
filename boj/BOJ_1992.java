@@ -53,6 +53,5 @@ public class BOJ_1992 {
 			quadTree(n/2, x + n/2, y + n/2);
 			sb.append(')');
 		}
-		
 	}
 }

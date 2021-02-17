@@ -1,4 +1,4 @@
-// https://www.acmicpc.net/problem/7543
+// https://www.acmicpc.net/problem/7453
 // 합이 0인 네 정수
 // 이분탐색
 package boj;
@@ -6,7 +6,7 @@ package boj;
 import java.io.*;
 import java.util.*;
 
-public class BOJ_7543_G2 {
+public class BOJ_7453_G2 {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
