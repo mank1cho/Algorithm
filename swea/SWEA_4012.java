@@ -45,7 +45,7 @@ public class SWEA_4012 {
 	
 	static void combination(int count, int next) {
 		if(count == N/2) {			
-//			
+			
 //			System.out.println();
 //			System.out.print(DEPTH++ + "번째 티밍 : ");
 //			for(int i = 1; i<=N; ++i) {
