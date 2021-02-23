@@ -29,7 +29,7 @@ public class BOJ_1931 {
 			arr[i] = (new Time(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
 		}		
 		
-		Comparator<Time> comp = new Comparator<>() {
+		Comparator<Time> comp = new Comparator<Time>() {
 			@Override
 			public int compare(Time a, Time b) {
 				if(a.end == b.end) return a.start - b.start;
