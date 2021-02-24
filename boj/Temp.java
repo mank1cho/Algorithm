@@ -4,6 +4,7 @@
 package boj;
 
 import java.io.*;
+import java.net.Socket;
 import java.util.*;
 
 public class Temp {
@@ -37,3 +38,16 @@ public class Temp {
        }
     }
 }
+
+
+/*	소켓연결 예제
+		Socket socket = new Socket("quietjun.asuscomm.com", 9876);
+		ObjectOutputStream oout = new ObjectOutputStream(socket.getOutputStream());
+		ObjectInputStream oin = new ObjectInputStream(socket.getInputStream());
+		oout.writeObject("아놔 왜 안되지");
+		Object result=oin.readObject();
+		System.out.println(result);
+		socket.close();
+		
+*/
+

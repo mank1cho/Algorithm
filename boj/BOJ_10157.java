@@ -1,6 +1,6 @@
 // https://www.acmicpc.net/problem/10157
 // 자리배정
-// 
+// 구현
 package boj;
 
 import java.io.*;
