@@ -11,69 +11,58 @@ public class BOJ_ {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        int[][] arr = new int[N][N];
-        for(int i = 0; i<N; ++i) {
-        	StringTokenizer st = new StringTokenizer(br.readLine());
-        	for(int j = 0; j<N; ++j){
-        		arr[i][j] = Integer.parseInt(st.nextToken());
-        	}
-        }
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int d = Integer.parseInt(st.nextToken());
+    	int k = Integer.parseInt(st.nextToken());
+    	
+    	int x = 0;
+    	int y = 0;
+    	int xx = 0;
+    	int yy = 0;
         
-        // 행
-        int row = -1;
-        for(int i = 0; i<N; ++i) {
-        	int cnt = 0;
-        	for(int j = 0; j<N; ++j) {
-        		if(arr[i][j] == 1) {
-        			++cnt;
-        		}
+    	if(d == 3 || d == 4) {
+    		x = k;
+    		xx = k;
+    	}
+    	
+    	else {
+    		y = k;
+    		yy = k;
+    	}
+    	
+    	for(int i = 0; i<5; ++i) {
+        	st = new StringTokenizer(br.readLine());
+        	int dd = Integer.parseInt(st.nextToken());
+        	int kk = Integer.parseInt(st.nextToken());
+        	if(func(d) != dd) {
+        		xx = k;
+        		yy = kk;
         	}
         	
-        	if(cnt%2 == 1) {
-        		if(row != -1) {
-        			System.out.println("Corrupt");
-        			return;
-        		}
-        		else row = i;
+        	if(dd == 3 || dd == 4) {
+        		x = Math.max(x, kk);
         	}
-        }
-        
-        int col = -1;
-        for(int i = 0; i<N; ++i) {
-        	int cnt = 0;
-        	for(int j = 0; j<N; ++j) {
-        		if(arr[j][i] == 1) {
-        			++cnt;
-        		}
+        	
+        	else {
+        		y = Math.max(y, kk);
         	}
-        	if(cnt%2 == 1) {
-        		if(col != -1) {
-        			System.out.println("Corrupt");
-        			return;
-        		}
-        		else col = i;
-        	}
+	
+        	d = dd;
+        	k = kk;
         }
-
-        // row == -1 col == -1	둘다 짝수
+    	
+    	if(xx == 0) xx = k;
+    	if(yy == 0) yy = k;
         
-        // row == -1, col == j	절대 못바꾸는 경우.
-        // row == i, col == -1	하나만 홀수면, 바꿔버리면 
-        
-        // row == i, col == j
-        
-        // 둘 다 짝수
-        if(row == -1 && col == -1) {
-        	System.out.println("OK");
-        }
-        
-        // 둘 중 하나만 홀수
-        else if(row == -1 || col == -1) {
-        	System.out.println("Corrupt");
-        }
-        
-        else {
-        	System.out.println("Change bit ("+(row+1)+","+(col+1)+")");
-        }
+        int ans = (x*y-xx*yy)*N;
+        System.out.println(ans);
     }
+    
+    static int func(int x) {
+    	if(x == 4) return 2;
+    	else if(x == 2) return 3;
+    	else if(x == 3) return 1;
+    	else return 4;
+    }
+    
 }

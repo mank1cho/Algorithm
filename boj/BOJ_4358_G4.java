@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class BOJ_4358_G4 {
@@ -28,6 +29,13 @@ public class BOJ_4358_G4 {
 		
 		StringBuilder sb = new StringBuilder();
 		Iterator<String> iter = map.keySet().iterator();
+
+		
+//		for(Map.Entry<String, Integer> entry : map.entrySet()) {
+//			System.out.println(entry.getKey());
+//			System.out.println(entry.getValue());
+//		}
+		
 		while(iter.hasNext()) {
 			String tree = iter.next();
 			int c = map.get(tree);
