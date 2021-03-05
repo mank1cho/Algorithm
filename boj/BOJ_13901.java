@@ -18,6 +18,8 @@ public class BOJ_13901 {
         int C = Integer.parseInt(st.nextToken());
         boolean[][] visit = new boolean[R][C];
         int k = Integer.parseInt(br.readLine());
+        
+        // 장애물
         while(k-->0) {
         	st = new StringTokenizer(br.readLine());
         	int x = Integer.parseInt(st.nextToken());
@@ -27,14 +29,18 @@ public class BOJ_13901 {
         st = new StringTokenizer(br.readLine());
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
+        
+        // 시작지점
         visit[x][y] = true;
         
+        // 방향 순서
         int[] dir = new int[4];
         st = new StringTokenizer(br.readLine());
         for(int i=0; i<4; ++i) {
         	dir[i] = Integer.parseInt(st.nextToken());
         }
         
+        // 로봇 움직임
         int d = 0;
         while(true) {
         	int nx = 0;
@@ -51,7 +57,9 @@ public class BOJ_13901 {
         		visit[nx][ny] = true;
         		break;
         	}
+        	// 갈곳이 없으면 끝
         	if(!f) break;
+        	// 로봇 위치 최신화
         	x=nx;y=ny;
         }
         System.out.println(x+" "+y);

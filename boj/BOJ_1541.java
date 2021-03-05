@@ -25,6 +25,7 @@ public class BOJ_1541 {
 				temp+=Integer.parseInt(add.nextToken());
 			}
 			
+			// 첫 값이 없을 때
 			if(sum == Integer.MAX_VALUE) {
 				sum = temp;
 			}

@@ -31,6 +31,8 @@ public class BOJ_14889 {
 		if(n == N/2) {
 			int team1 = 0;
 			int team2 = 0;
+			
+			// 팀 점수를 구함
 			for(int i = 0; i<N; ++i) {
 				for(int j = i+1; j<N; ++j) {
 					if((teaming[i]&teaming[j]) == true) {
@@ -46,6 +48,7 @@ public class BOJ_14889 {
 			return;
 		}
 		
+		// 조합을 구함
 		for(int i = x; i<N; ++i) {
 			teaming[i] = true;
 			func(i+1, n+1);
