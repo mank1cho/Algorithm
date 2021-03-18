@@ -2,6 +2,8 @@
 // 조커
 // 투포인터
 
+package jungol;
+
 import java.io.*;
 import java.util.*;
  

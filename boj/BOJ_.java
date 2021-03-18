@@ -9,8 +9,6 @@ import java.util.*;
 public class BOJ_ {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String s = "012345";
-		String ss = s.substring(0, 3);
-		System.out.println(ss);
+		
 	}
 }
