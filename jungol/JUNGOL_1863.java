@@ -30,6 +30,7 @@ public class JUNGOL_1863 {
 			int b = Integer.parseInt(st.nextToken());
 			int x = find(a);
 			int y = find(b);
+			
 			if (rank[x] < rank[y]) {
 				arr[x] = y; // 큰 놈에 붙여줌
 				rank[y]++;	// 트리에서 레벨같은 개념
@@ -37,6 +38,7 @@ public class JUNGOL_1863 {
 				arr[y] = x;
 				rank[x]++;
 			}
+			
 		}
 
 		int ans = 0;

@@ -14,7 +14,7 @@ public class SWEA_ {
 		StringBuilder sb = new StringBuilder();
 
 		int T = Integer.parseInt(br.readLine());
-		;
+		
 		for (int t = 1; t <= T; ++t) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			
