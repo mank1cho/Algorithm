@@ -34,6 +34,7 @@ public class BOJ_2098_G1 {
 	}
 	
 	static int TSP(int visit, int node) {
+		
 		if(visit == (1<<N) -1) {
 			if(map[node][0] == 0) return INF;
 			return map[node][0];
