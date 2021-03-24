@@ -28,17 +28,18 @@ public class BOJ_1600_G5 {
 		int W = Integer.parseInt(st.nextToken());
 		int H = Integer.parseInt(st.nextToken());
 		int[][] map = new int[H][W];
+		int[][] visit = new int[H][W];
+		
 		for(int i = 0; i<H; ++i) {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j<W; ++j) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 			}
+			Arrays.fill(visit[i], 99);
 		}
 		
-		boolean[][][] visit = new boolean[H][W][K+1];
 		Queue<INFO> q = new LinkedList<>();
 		
-		Arrays.fill(visit[0][0], true);
 		q.offer(new INFO(0,0,0,0));
 		
 		while(!q.isEmpty()) {
@@ -46,31 +47,31 @@ public class BOJ_1600_G5 {
 			int y = q.peek().y;
 			int c = q.peek().c;
 			int dis = q.poll().dis;
-			
-			
+
 			if(x == H-1 && y == W-1) {
 				System.out.println(dis);
 				return;
 			}
+			
+			if(c<K) {
+				for(int i = 4; i<12; ++i) {
+					int nx = x+dx[i];
+					int ny = y+dy[i];
+					if(nx<0||ny<0||nx>=H||ny>=W||map[nx][ny]==1||visit[nx][ny]<=c+1) continue;
+					visit[nx][ny] = c+1;
+					q.offer(new INFO(nx, ny, c+1, dis+1));
+				}
+			}
+			
 			for(int i = 0; i<4; ++i) {
 				int nx = x+dx[i];
 				int ny = y+dy[i];
-				if(nx<0||ny<0||nx>=H||ny>=W||map[nx][ny]==1||visit[nx][ny][c]) continue;
-				visit[nx][ny][c] = true;
+				if(nx<0||ny<0||nx>=H||ny>=W||map[nx][ny]==1||visit[nx][ny]<=c) continue;
+				visit[nx][ny] = c;
 				q.offer(new INFO(nx, ny, c, dis+1));
-			}
-			
-			if(c==K) continue;
-			for(int i = 4; i<12; ++i) {
-				int nx = x+dx[i];
-				int ny = y+dy[i];
-				if(nx<0||ny<0||nx>=H||ny>=W||map[nx][ny]==1||visit[nx][ny][c+1]) continue;
-				visit[nx][ny][c+1] = true;
-				q.offer(new INFO(nx, ny, c+1, dis+1));
 			}
 		}
 		
 		System.out.println(-1);
 	}
-
 }
