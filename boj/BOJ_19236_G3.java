@@ -33,16 +33,19 @@ public class BOJ_19236_G3 {
 			}
 		}
 		
+		//
 		POSITION[] fishes = new POSITION[17];
 		POSITION shark;
 		int[][] map = new int[4][4];
-		int score;	
+		int score;
+		//
 		
 		INFO() {}
 		INFO(INFO info){		// for copy
 			for(int i = 1; i<17; ++i) {
 				this.fishes[i] = new POSITION(info.fishes[i]);
 			}
+			
 			this.shark = new POSITION(info.shark);
 			
 			for(int i = 0; i<4; ++i) {
@@ -105,7 +108,6 @@ public class BOJ_19236_G3 {
 				System.out.println();
 			}
 			System.out.println();
-			System.out.println();
 		}
 
 	}
@@ -135,23 +137,23 @@ public class BOJ_19236_G3 {
 		info.fishes[num].alive = false;
 		
 		info.shark = info.new POSITION(0,0,info.fishes[num].d, true);
+		
+		
 		dfs(info);
 		System.out.println(ans);
 	}
 	
 	static void dfs(INFO info) {
 		info.fishMove();
+		
 		for(int i = 1; i<4; ++i) {
+			
 			INFO next = new INFO(info);
 			if(next.sharkMove(i)) {
 				dfs(next);
 			}
+			
 		}
 	}
+	
 }
-
-
-
-
-
-
