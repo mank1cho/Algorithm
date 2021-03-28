@@ -1,79 +1,140 @@
 // https://www.acmicpc.net/problem/16236
 // 아기상어
 // BFS
-package boj;
 
+package boj;
 import java.io.*;
 import java.util.*;
 
 public class BOJ_16236_G4 {
 	
-	static final int[] dx = {0,0,1,-1};
-	static final int[] dy = {1,-1,0,0};
+	static class Pair{
+		int x, y;
+		Pair(int x, int y){
+			this.x = x;
+			this.y = y;
+		}
+	}
+
+	static int N, sharkSize = 2, sharkEatFishCount, time;
+	static int[][] map;
+	static int sharkX, sharkY;
+
+	static int dx[] = {0,0,1,-1};
+	static int dy[] = {1,-1,0,0};
+	static final int INF = Integer.MAX_VALUE;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		int[][] map = new int[N][N];
-		int x = 0, y = 0;
+		input(br);
+
+		// BFS를 얼마나 돌려야 할까???
+		while(BFS());
+		
+		System.out.println(time);
+	}
+	
+	static void input(BufferedReader br) throws NumberFormatException, IOException {
+		N = Integer.parseInt(br.readLine());
+		
+		map = new int[N][N];
 		
 		for(int i = 0; i<N; ++i) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int j = 0; j<N; ++j) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 				if(map[i][j] == 9) {
-					x = i;
-					y = j;
+					sharkX = i;
+					sharkY = j;
 					map[i][j] = 0;
 				}
 			}
 		}
+	}
+	
+	static boolean BFS() {
+		boolean sharkEatFish = false;
+		Queue<Pair> q = new LinkedList<>();
+		boolean[][] visited = new boolean[N][N];
+		visited[sharkX][sharkY] = true;
+		q.add(new Pair(sharkX, sharkY));
 		
-		int sharksize = 2;
-		int fishCnt = 0;
-		int ans = 0;
-		boolean visit[][] = new boolean[N][N];
+		int fishX = INF, fishY = INF;
+		int sharkMove = 0;	// 상어의 이동 거리
 		
-		while(true) {
-			Queue<int[]> q = new LinkedList<>();
-			q.offer(new int[] {x,y});
-			visit[x][y] = true;
-			int dis = 0, mx = 999, my = 999;
-			while(!q.isEmpty()) {
-				++dis;
-				int size = q.size();
-				while(size-->0) {
-					int xx = q.peek()[0];
-					int yy = q.poll()[1];
-					for(int i = 0; i<4; ++i) {
-						int nx = xx+dx[i];
-						int ny = yy+dy[i];
-						if (nx < 0 || ny<0 || nx == N || ny == N || map[nx][ny]>sharksize || visit[nx][ny]) continue;
-						if (map[nx][ny]>0 && map[nx][ny] < sharksize) {
-							if (nx < mx) {mx = nx; my = ny;}
-							else if (nx == mx && ny < my) {mx = nx; my = ny;}
+		while(!q.isEmpty()) {
+			sharkMove++;
+			
+			int size = q.size();
+			while(size-->0){
+				Pair now = q.poll();
+				
+				for(int i = 0; i<4; ++i) {
+					int nx = now.x+dx[i];
+					int ny = now.y+dy[i];
+					if(!babySharkCanGo(nx, ny, visited)) continue;
+					
+					visited[nx][ny] = true;
+					
+					if(babySharkCanEatFish(nx, ny)) {
+						sharkEatFish = true;
+						if(futherUpOrLeft(nx, ny, fishX, fishY)) {
+							fishX = nx;
+							fishY = ny;
 						}
-						q.offer(new int[] {nx,ny});
-						visit[nx][ny] = true;
 					}
-				}
-				if(mx != 999) {
-					ans+=dis;
-					x = mx;
-					y = my;
-					map[x][y] = 0;
-					fishCnt++;
-					if(sharksize==fishCnt) {
-						sharksize++;
-						fishCnt=0;
+					else {
+						q.add(new Pair(nx, ny));
 					}
-					break;
 				}
 			}
-			if(mx == 999) break;
-			for(int i = 0; i<N; ++i) Arrays.fill(visit[i], false);
+			
+			if(sharkEatFish) {
+				update(fishX, fishY, sharkMove);
+				return true;
+			}
 		}
 		
-		System.out.println(ans);
+		return false;
 	}
+	
+	static boolean futherUpOrLeft(int nx, int ny, int fishX, int fishY){
+		return nx<fishX || (nx == fishX && ny<fishY);
+	}
+	
+	// 아기상어 위치를 바꿔줘야겠죠?
+	// 맵도 바꿔줘야겠죠?
+	// 상어 크기도 바꿔줘야겠죠? 상어는 사이즈만큼 물고기를 먹으면 사이즈가 커짐
+	// 걸린 시간도 더해줍니다.
+	static void update(int fishX, int fishY, int sharkMove) {
+		sharkX = fishX;
+		sharkY = fishY;
+		map[sharkX][sharkY] = 0;
+		sharkEatFishCount++;
+		if(sharkEatFishCount == sharkSize) {
+			sharkSize++;
+			sharkEatFishCount = 0;
+		}
+		time+=sharkMove;
+	}
+	
+	static boolean babySharkCanEatFish(int nx, int ny) {
+		if(map[nx][ny]>0 && map[nx][ny] < sharkSize) return true;
+		return false;
+	}
+	
+	static boolean babySharkCanGo(int x, int y, boolean[][] visited) {
+		return x>=0&&y>=0&&x<N&&y<N&&map[x][y]<=sharkSize&&!visited[x][y];
+	}
+	
+	static void printmap() {
+		System.out.println();
+		System.out.println("====debug=====");
+		for(int i = 0; i<N; ++i) {
+			for(int j = 0; j<N; ++j) {
+				System.out.print(map[i][j]);
+			}System.out.println();
+		}
+	}
+	
 }
