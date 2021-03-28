@@ -1,12 +1,12 @@
-// https://www.acmicpc.net/problem/
-// 
-// 
+// https://www.acmicpc.net/problem/2512
+// 예산
+// 이분탐색
 package boj;
 
 import java.io.*;
 import java.util.*;
 
-public class BOJ_ {
+public class BOJ_2512 {
 	
 	static int N, M;
 	
