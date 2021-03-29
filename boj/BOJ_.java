@@ -1,140 +1,84 @@
-// https://www.acmicpc.net/problem/
-// 
-// 
 package boj;
 
 import java.io.*;
 import java.util.*;
 
+class info{
+   int num;
+   int visited;
+   
+   public info(int num, int visited) {
+      super();
+      this.num = num;
+      this.visited = visited;
+   }
+   
+   
+}
 public class BOJ_ {
-	
-	static class Pair{
-		int x, y;
-		Pair(int x, int y){
-			this.x = x;
-			this.y = y;
-		}
-	}
 
-	static int N, sharkSize = 2, sharkEatFishCount, time;
-	static int[][] map;
-	static int sharkX, sharkY;
+   static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+   static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+   static StringBuilder sb = new StringBuilder();
+   static int N,M;
+   static int[] weight;
+   static boolean[] check;
+   public static void main(String[] args) throws Exception{
 
-	static int dx[] = {0,0,1,-1};
-	static int dy[] = {1,-1,0,0};
-	static final int INF = Integer.MAX_VALUE;
-	
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		input(br);
+      N = Integer.parseInt(br.readLine());
+      weight = new int[N];
+      StringTokenizer st = new StringTokenizer(br.readLine());
+      
+      for(int i=0;i<N;++i) {
+         weight[i]=Integer.parseInt(st.nextToken());
+      }
+      
+      Arrays.sort(weight);
+      
+      //500g의 추가 최대 30개까지 있다 가정했을 때 만들 수 있는 최대 무게는 15000g이다
+      check = new boolean[15001];
+      
+      //bfs를 통해 만들 수 있는 경우의 수 구함
+      Queue<info> q = new LinkedList<>();
+      
+      //queue 초기 작업
+      for(int i=0;i<N;++i) {
+         check[weight[i]]=true;
+         q.add(new info(weight[i],1<<i));
+      }
+      
+      
+      //추의 최대 개수가 30개임으로 int 변수 하나로 방문 체크 가능(bit 연산, 2^31-1이 int 최대 값이기 때문)
+      while(!q.isEmpty()) {
+         info item = q.poll();      
+         for(int i=0;i<N;++i) {
+            //아직 쓰이지 않은 추이면 bit는 0
+            int bit = item.visited&(1<<i);
+            //아직 체크되지 않은 무게라면 갱신해준다.
+            if(bit==0 && !check[item.num+weight[i]]){
+               check[item.num+weight[i]]=true;
+               q.add(new info(item.num+weight[i],item.visited|(1<<i)));
+            }
+            //현재 계산된 무게에서 i번째 추를 저울 반대쪽에 달았을 경우도 고려함
+            if(bit==0 && !check[Math.abs(item.num-weight[i])]) {
+               check[Math.abs(item.num-weight[i])]=true;
+               q.add(new info(Math.abs(item.num-weight[i]),item.visited|(1<<i)));
+            }
+         }
+         
+      }
+      
+      M = Integer.parseInt(br.readLine());
+      st = new StringTokenizer(br.readLine());
+      
+      for(int i=0;i<M;++i) {
+         int num = Integer.parseInt(st.nextToken());
+         //만들 수 있는 최대 추의 무게를 벗어나거나 가지고 있는 추로 만들수 없는 경우
+         if(num>15000 || !check[num])System.out.print("N " );
+         else System.out.print("Y ");
+      }
 
-		// BFS를 얼마나 돌려야 할까???
-		while(BFS());
-		
-		System.out.println(time);
-	}
-	
-	static void input(BufferedReader br) throws NumberFormatException, IOException {
-		N = Integer.parseInt(br.readLine());
-		
-		map = new int[N][N];
-		
-		for(int i = 0; i<N; ++i) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			for(int j = 0; j<N; ++j) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-				if(map[i][j] == 9) {
-					sharkX = i;
-					sharkY = j;
-					map[i][j] = 0;
-				}
-			}
-		}
-	}
-	
-	static boolean BFS() {
-		boolean sharkEatFish = false;
-		Queue<Pair> q = new LinkedList<>();
-		boolean[][] visited = new boolean[N][N];
-		visited[sharkX][sharkY] = true;
-		q.add(new Pair(sharkX, sharkY));
-		
-		int fishX = INF, fishY = INF;
-		int sharkMove = 0;	// 상어의 이동 거리
-		
-		while(!q.isEmpty()) {
-			sharkMove++;
-			
-			int size = q.size();
-			while(size-->0){
-				Pair now = q.poll();
-				
-				for(int i = 0; i<4; ++i) {
-					int nx = now.x+dx[i];
-					int ny = now.y+dy[i];
-					if(!babySharkCanGo(nx, ny, visited)) continue;
-					
-					visited[nx][ny] = true;
-					
-					if(babySharkCanEatFish(nx, ny)) {
-						sharkEatFish = true;
-						if(futherUpOrLeft(nx, ny, fishX, fishY)) {
-							fishX = nx;
-							fishY = ny;
-						}
-					}
-					else {
-						q.add(new Pair(nx, ny));
-					}
-				}
-			}
-			
-			if(sharkEatFish) {
-				update(fishX, fishY, sharkMove);
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
-	static boolean futherUpOrLeft(int nx, int ny, int fishX, int fishY){
-		return nx<fishX || (nx == fishX && ny<fishY);
-	}
-	
-	// 아기상어 위치를 바꿔줘야겠죠?
-	// 맵도 바꿔줘야겠죠?
-	// 상어 크기도 바꿔줘야겠죠? 상어는 사이즈만큼 물고기를 먹으면 사이즈가 커짐
-	// 걸린 시간도 더해줍니다.
-	static void update(int fishX, int fishY, int sharkMove) {
-		sharkX = fishX;
-		sharkY = fishY;
-		map[sharkX][sharkY] = 0;
-		sharkEatFishCount++;
-		if(sharkEatFishCount == sharkSize) {
-			sharkSize++;
-			sharkEatFishCount = 0;
-		}
-		time+=sharkMove;
-	}
-	
-	static boolean babySharkCanEatFish(int nx, int ny) {
-		if(map[nx][ny]>0 && map[nx][ny] < sharkSize) return true;
-		return false;
-	}
-	
-	static boolean babySharkCanGo(int x, int y, boolean[][] visited) {
-		return x>=0&&y>=0&&x<N&&y<N&&map[x][y]<=sharkSize&&!visited[x][y];
-	}
-	
-	static void printmap() {
-		System.out.println();
-		System.out.println("====debug=====");
-		for(int i = 0; i<N; ++i) {
-			for(int j = 0; j<N; ++j) {
-				System.out.print(map[i][j]);
-			}System.out.println();
-		}
-	}
-	
+   }
+
+
 }
