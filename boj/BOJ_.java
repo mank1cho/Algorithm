@@ -8,77 +8,117 @@ import java.io.*;
 import java.util.*;
 
 public class BOJ_ {
-	
-	static class Info implements Comparable<Info>{
-		int id;
-		int counter;
-		int time;
-		Info(int id, int counter, int time){
-			this.id = id;
-			this.counter = counter;
-			this.time = time;
-		}
-		
-		@Override
-		public int compareTo(Info o) {
-			if(time == o.time) {
-				return Integer.compare(counter, o.counter);
-			}
-			return Integer.compare(time, o.time);
-		}
-	}
-	
+
+	static int N, M;
+	static boolean[] check;
+	static int[][] map;
+	static int[][] zoneNum;
+	static boolean[][] visit;
+
 	public static void main(String[] args) throws Exception {
+		input();
+		manki();
+	}
+
+	public static void input() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		
-		int n = Integer.parseInt(st.nextToken());
-		int k = Integer.parseInt(st.nextToken());
-		
-		int[][] arr = new int[n][2]; // 회원번호, 물건의 수
-		for(int i = 0; i<n; ++i) {
-			st = new StringTokenizer(br.readLine());
-			arr[i][0] = Integer.parseInt(st.nextToken());
-			arr[i][1] = Integer.parseInt(st.nextToken());
-		}
-		
-		PriorityQueue<Info> pq = new PriorityQueue<>();
-		
-		int idx = 0;
-		for(int i = 0; i<k&&i<n; ++i) {
-			pq.add(new Info(arr[idx][0], i, arr[idx++][1]));
-		}
-		
-		long ans = 0;
-		long r = 1;
-		int outTime = 0;
-		
-		Stack<Long> member = new Stack<>();
-		while(!pq.isEmpty()) {
-			Info out = pq.poll();
-			int outId = out.id; // 고객 회원번호
-			int outCounter = out.counter;
-			outTime = out.time;
-			
-			if(idx<n) pq.add(new Info(arr[idx][0], outCounter, arr[idx++][1]+outTime));
-			member.add((long)outId);
-			
-			while(!pq.isEmpty() && pq.peek().time == outTime) {
-				out = pq.poll();
-				outId = out.id; // 고객 회원번호
-				outCounter = out.counter;
-				outTime = out.time;
-				if(idx<n) pq.add(new Info(arr[idx][0], outCounter, arr[idx++][1]+outTime));
-				member.add((long)outId);
+		N = Integer.parseInt(st.nextToken());
+		M = Integer.parseInt(st.nextToken());
+
+		map = new int[N][M];
+		zoneNum = new int[N][M];
+		visit = new boolean[N][M];
+
+		for (int i = 0; i < N; ++i) {
+			String s = br.readLine();
+			for (int j = 0; j < M; ++j) {
+				char c = s.charAt(j);
+				if (c == '1')
+					map[i][j] = -1;
+				else
+					map[i][j] = 0;
 			}
-			
-			while(!member.isEmpty()) {
-				ans+=member.pop()*r;
-				r++;
+		}
+	}
+
+	public static void manki() {
+		int num = 1;
+		for (int i = 0; i < N; ++i) {
+			for (int j = 0; j < M; ++j) {
+				if (map[i][j] == 0) {
+					bfs(i, j, num++);
+				}
 			}
 		}
 
-		System.out.println(ans);
-		
+		check = new boolean[num + 1];
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < N; ++i) {
+			for (int j = 0; j < M; ++j) {
+				if (map[i][j] == -1) {
+					int cnt = 1;
+					for (int k = 0; k < 4; ++k) {
+						int nx = i + dx[k];
+						int ny = j + dy[k];
+						if (!isIn(nx, ny) || map[nx][ny] == -1) continue;
+						if (check[zoneNum[nx][ny]]) continue;
+						check[zoneNum[nx][ny]] = true;
+						cnt+=map[nx][ny];
+					}
+					sb.append(cnt%10);
+					for (int k = 0; k < 4; ++k) {
+						int nx = i + dx[k];
+						int ny = j + dy[k];
+						if (!isIn(nx, ny)) continue;
+						check[zoneNum[nx][ny]] = false;
+					}
+				}
+				else sb.append(0);
+			}
+			sb.append('\n');
+		}
+
+		System.out.println(sb);
 	}
+
+	static final int[] dx = { 0, 0, 1, -1 };
+	static final int[] dy = { 1, -1, 0, 0 };
+
+	public static void bfs(int x, int y, int num) {
+		Queue<int[]> q = new LinkedList<>();
+		Queue<int[]> memo = new LinkedList<>();
+
+		int dis = 1;
+		q.add(new int[] { x, y });
+		memo.add(new int[] { x, y });
+		visit[x][y] = true;
+
+		while (!q.isEmpty()) {
+			int[] now = q.poll();
+			for (int i = 0; i < 4; ++i) {
+				int nx = now[0] + dx[i];
+				int ny = now[1] + dy[i];
+				if (!isIn(nx, ny) || map[nx][ny] != 0 || visit[nx][ny])
+					continue;
+				dis++;
+				visit[nx][ny] = true;
+				q.add(new int[] { nx, ny });
+				memo.add(new int[] { nx, ny });
+			}
+		}
+
+		while (!memo.isEmpty()) {
+			int nx = memo.peek()[0];
+			int ny = memo.poll()[1];
+			map[nx][ny] = dis;
+			zoneNum[nx][ny] = num;
+		}
+
+	}
+
+	public static boolean isIn(int x, int y) {
+		return x >= 0 && y >= 0 && x < N && y < M;
+	}
+
 }
