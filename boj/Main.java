@@ -3,21 +3,27 @@
 // 
 package boj;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Main {
 
 	public static void main(String[] args) {
-		int x = 0;
-		int y = 0;
-		int x1 = -5;
-		int y1 = 5;
-		int width = (x - x1);	// int 붙여주면 뭔가 달라짐
-		int height = (y - y1);
-		double angle = ((180.0/Math.PI)*Math.atan2(width, height));
-		System.out.println(angle);
+		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		 width = (-x + x1);	// int 붙여주면 뭔가 달라짐
-		 height = (-y + y1);
-		 angle = ((180.0/Math.PI)*Math.atan2(width, height));
-		System.out.println(angle);
+		Map<Integer, Integer> map = new TreeMap<>();
+		
+		map.put(2, 6);
+		map.put(3, 2);
+		map.put(1, 4);
+		map.put(5, 3);
+		map.put(6, 1);
+		map.put(4, 2);
+		
+		System.out.println(map.toString());
+		
+		
+		
+		
 	}
 }
