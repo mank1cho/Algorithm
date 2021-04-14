@@ -3,27 +3,55 @@
 // 
 package boj;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
 
 public class Main {
+	
+	static int N, M;
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		N = Integer.parseInt(br.readLine());
+		
+		int[] arr = new int[N];
 
-	public static void main(String[] args) {
-		//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int left = 0;
+		int right = 0;
 		
-		Map<Integer, Integer> map = new TreeMap<>();
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		for(int i = 0; i<N; ++i) {
+			arr[i] = Integer.parseInt(st.nextToken());
+			right = Math.max(right, arr[i]);
+		}
 		
-		map.put(2, 6);
-		map.put(3, 2);
-		map.put(1, 4);
-		map.put(5, 3);
-		map.put(6, 1);
-		map.put(4, 2);
+		M = Integer.parseInt(br.readLine());
 		
-		System.out.println(map.toString());
-		
-		
-		
-		
-	}
+		// 1. 어느 순간이 되면
+		// 2. left가 right를 넘어간다
+		// 3. [결국 조건을 만족하는] 최댓값을 right로 맞춰줘야겠다.
+		// 4. right와 left의 증감 조건만 잘 설정해주면 끝.
+		while(left<=right) {
+			int mid = (left+right)/2;
+			long sum = 0;
+			
+			for(int i = 0; i<N; ++i) {
+				if(arr[i] < mid) {
+					sum+=arr[i];
+				}
+				else sum+=mid;
+			}
+			
+			if(sum>M) {
+				right = mid-1;
+			}
+			else {
+				left = mid+1;
+			}
+			
+			System.out.println("left : " + left + " , right : " + right);
+		}
+		System.out.println("left : " + left + " , right : " + right);
+		System.out.println(right);
+    }    
 }

@@ -9,115 +9,103 @@ import java.util.*;
 
 public class BOJ_ {
 
-	static class Pair {
-		int x, y;
+	static int n, m;
+	static char[] arr;
+	static char[][] switches;
 
-		Pair(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
-	static int N, M;
-	static List<Pair>[][] list;
-	static boolean isTurnOn[][];
-	static boolean visit[][];
+	static boolean[] visit;
+	static List<Integer>[] list;
 
 	public static void main(String[] args) throws Exception {
 		input();
-		bfs();
-		System.out.println(getAnswer());
 	}
 
 	public static void input() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 
-		list = new ArrayList[N + 1][N + 1];
-		isTurnOn = new boolean[N + 1][N + 1];
-		visit = new boolean[N + 1][N + 1];
+		arr = br.readLine().toCharArray();
+		switches = new char[m][];
+		visit = new boolean[2 * n + 1]; //
+		list = new ArrayList[2 * n + 1];
 
-		for (int i = 1; i <= N; ++i) {
-			for (int j = 1; j <= N; ++j) {
-				list[i][j] = new ArrayList<>();
-			}
+		for (int i = 0; i < m; ++i) {
+			switches[i] = br.readLine().toCharArray();
 		}
 
-		while (M-- > 0) {
-			st = new StringTokenizer(br.readLine());
-			int x = Integer.parseInt(st.nextToken());
-			int y = Integer.parseInt(st.nextToken());
-			int a = Integer.parseInt(st.nextToken());
-			int b = Integer.parseInt(st.nextToken());
-			list[x][y].add(new Pair(a, b));
-
+		int cnt = 0;
+		for (int i = 0; i < arr.length; ++i) {
+			if (arr[i] == '0')
+				--cnt;
+			else
+				++cnt;
 		}
 
-	}
+		visit[cnt+n] = true;
+		list[cnt+n] = new ArrayList<>();
+		
+		List<Integer> alist = new ArrayList<>();
+		dfs(0, alist);
+		
+		System.out.println(Arrays.toString(visit));
 
-	public static int[] dx = { 0, 0, 1, -1 };
-	public static int[] dy = { 1, -1, 0, 0 };
-
-	public static void bfs() {
-
-		Queue<Pair> q = new LinkedList<>();
-
-		q.add(new Pair(1, 1));
-		isTurnOn[1][1] = true;
-		visit[1][1] = true;
-
-		while (!q.isEmpty()) {
-			Pair now = q.poll();
-			int x = now.x;
-			int y = now.y;
-			
-			for (Pair p : list[x][y]) {
-				isTurnOn[p.x][p.y] = true;	//불켜줌.
-			}
-			
-			for (Pair p : list[x][y]) {
-				// 4방향중 방문한곳이 있는데 새롭게 불이 켜졌다면
-				for(int i = 0; i<4; ++i) {
-					int nx = p.x+dx[i];
-					int ny = p.y+dy[i];
-					if(!isIn(nx, ny)) continue;
-					if(!visit[p.x][p.y] && visit[nx][ny]) {		
-						visit[p.x][p.y] = true;
-						q.add(new Pair(p.x, p.y));
-						break;
-					}
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0; i < 2 * n + 1; ++i) {
+			if (list[i] != null) {
+				sb.append(list[i].size()).append(' ');
+				for(int j = 0; j<list[i].size(); ++j) {
+					sb.append(list[i].get(j)+1).append(' ');
 				}
-				
-				// 4방향중 불은 켜졌지만 아직 방문하지 않은 곳이 있다면
-				for(int i = 0; i<4; ++i) {
-					int nx = p.x+dx[i];
-					int ny = p.y+dy[i];
-					if(!isIn(nx, ny)) continue;
-					if(isTurnOn[nx][ny] && !visit[nx][ny]) {
-						visit[nx][ny] = true;
-						q.add(new Pair(nx, ny));
-					}
-				}
+				sb.append('\n');
+			}
+			else {
+				sb.append(-1).append('\n');
 			}
 		}
+		
+		System.out.println(sb);
 
 	}
 
-	static boolean isIn(int x, int y) {
-		return x > 0 && y > 0 && x <= N && y <= N;
-	}
-	
-	static int getAnswer() {
-		int count = 0;
-		for (int i = 1; i <= N; ++i) {
-			for (int j = 1; j <= N; ++j) {
-				if (isTurnOn[i][j])
-					count++;
-			}
+	public static void dfs(int depth, List<Integer> alist) {
+		if (depth == m)
+			return;
+
+		// 0 0 과거
+		// 0 1 미래
+		// 1 0 미래
+		// 1 1 과거
+		int cnt = 0;
+		char[] test = arr.clone();
+		for (int i = 0; i < n; ++i) {
+			int xor = (arr[i] - '0') ^ (switches[depth][i] - '0');
+			arr[i] = (char) (xor + '0');
+			if(xor == 0) --cnt;
+			else ++cnt;
+			
 		}
-		return count;
+		alist.add(depth);
+
+		System.out.println("depth : " + depth + " list : "+ Arrays.toString(arr));
+		
+		if (!visit[cnt + n]) {
+			System.out.println("?? " + (cnt));
+			visit[cnt + n] = true;
+			list[cnt + n] = new ArrayList<>();
+			for (int i = 0; i < alist.size(); ++i) {
+				list[cnt + n].add(alist.get(i));
+			}
+
+			dfs(depth + 1, alist);
+		}
+		
+		alist.remove(alist.size() - 1);
+		arr = test.clone();		
+		dfs(depth + 1, alist);
+		
 	}
 
 }
